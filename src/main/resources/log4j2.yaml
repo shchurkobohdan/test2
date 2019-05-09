@@ -1,0 +1,36 @@
+Configuration:
+  name: Log4jConfiguration
+  level: all
+  properties:
+    property:
+      name: path
+      value: logs
+#------------------------------------------------------------------------------------------
+  Appenders:
+
+    Console:
+      name: Console_Appender
+      PatternLayout:
+        Pattern: "%highlight{%-5level}{FATAL=bg_red} %style{%date{yyyy-MM-dd HH:mm:ss.SSS}}{blue} %class{1}:%L - %highlight{%msg} %xEx{short}%n"
+
+    File:
+      name: File
+      fileName: ${path}/logfile.log
+      PatternLayout:
+        Pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+#------------------------------------------------------------------------------------------
+  Loggers:
+
+    Root:
+        level: all
+        AppenderRef:
+        - ref: Console_Appender
+          level: all
+
+    Logger:
+      - name: test.Task1
+        additivity: true
+        level: all
+        AppenderRef:
+         - ref: File
+           level: trace
